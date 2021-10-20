@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICommand
+public abstract class Command
 {
-    void Execute();
+    public virtual void Execute()
+    {
+
+    }
+    
 }

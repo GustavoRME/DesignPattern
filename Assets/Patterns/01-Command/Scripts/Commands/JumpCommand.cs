@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpCommand : MonoBehaviour, ICommand
+public class JumpCommand : Command
 {
-    public void Execute()
+    public override void Execute()
     {
-        throw new System.NotImplementedException();
+        base.Execute();
     }
 }
