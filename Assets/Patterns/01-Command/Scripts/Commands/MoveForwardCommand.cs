@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpCommand : Command
+public class MoveForwardCommand : Command
 {
     public override void Execute(GameObject go)
     {
-        Debug.Log($"Jumped with {go.name}");
+        Debug.Log($"Move forward {go.name}");
     }
 }

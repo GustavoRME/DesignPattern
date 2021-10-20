@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Command
 {
-    public virtual void Execute()
+    public virtual void Execute(GameObject go)
     {
 
     }

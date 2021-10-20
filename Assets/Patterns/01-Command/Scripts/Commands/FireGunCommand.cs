@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FireGunCommand : Command
 {
-    public override void Execute()
+    public override void Execute(GameObject go)
     {
-        base.Execute();
+        Debug.Log($"Fired with {go.name}");
     }
 }
