@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class ActionConfigurationUI : MonoBehaviour
 {
-    [SerializeField] private BindActions _bindActions = default;
-
     [Space]
     [SerializeField] private TextMeshProUGUI _actionName = default;
     [SerializeField] private TextMeshProUGUI _keyName = default;
@@ -26,14 +24,16 @@ public class ActionConfigurationUI : MonoBehaviour
     private bool _isListening;
 
     private Coroutine _lerpCoroutine;
-
-    public string ActionName => _actionName.text;
+    private CommandHold _commandHold;
 
     private void Start()
     {
+        //Set default values
         _normalColor = _buttonImage.color;
         _actionName.text = _defaultAction;
         _keyName.text = _defaultKey;
+
+        _commandHold = GetComponent<CommandHold>();
     }
 
     private void OnDestroy()
@@ -51,7 +51,7 @@ public class ActionConfigurationUI : MonoBehaviour
     public void SwapOutListening()
     {
         _isListening = !_isListening;
-        _bindActions.ListeningKeys(_isListening, this);
+        //_bindActions.ListeningKeys(_isListening, this);
 
         if (_isListening) _buttonImage.color = _listeningColor;
         else _buttonImage.color = _normalColor;
