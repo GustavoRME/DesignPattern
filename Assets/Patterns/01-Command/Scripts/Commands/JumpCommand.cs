@@ -10,5 +10,10 @@ namespace CommandPattern
         {
             Debug.Log($"Jumped with {go.name}");
         }
+
+        public override void Undo(GameObject go)
+        {
+            Debug.Log($"Return Jump {go.name}");
+        }
     }
 }

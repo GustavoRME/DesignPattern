@@ -10,5 +10,10 @@ namespace CommandPattern
         {
             Debug.Log($"Moved right {go.name}");
         }
+
+        public override void Undo(GameObject go)
+        {
+            Debug.Log($"Return Move right");
+        }
     }
 }

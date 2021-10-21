@@ -10,6 +10,11 @@ namespace CommandPattern
         {
             Debug.Log($"Fired with {go.name}");
         }
+
+        public override void Undo(GameObject go)
+        {
+            Debug.Log($"Return fire with {go.name}");
+        }
     }
 }
 

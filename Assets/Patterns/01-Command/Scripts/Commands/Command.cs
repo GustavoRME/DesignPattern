@@ -10,6 +10,11 @@ namespace CommandPattern
         {
 
         }
+
+        public virtual void Undo(GameObject go)
+        {
+
+        }
     
     }
 }
