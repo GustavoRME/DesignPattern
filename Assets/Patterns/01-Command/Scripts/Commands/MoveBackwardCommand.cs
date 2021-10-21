@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveBackwardCommand : Command
+namespace CommandPattern
 {
-    public override void Execute(GameObject go)
+    public class MoveBackwardCommand : Command
     {
-        Debug.Log($"Moved backward {go.name}");
+        public override void Execute(GameObject go)
+        {
+            Debug.Log($"Moved backward {go.name}");
+        }
     }
 }

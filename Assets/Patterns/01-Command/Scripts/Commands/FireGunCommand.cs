@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireGunCommand : Command
+namespace CommandPattern
 {
-    public override void Execute(GameObject go)
+    public class FireGunCommand : Command
     {
-        Debug.Log($"Fired with {go.name}");
+        public override void Execute(GameObject go)
+        {
+            Debug.Log($"Fired with {go.name}");
+        }
     }
 }
+
+

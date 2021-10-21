@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveLeftCommand : Command
+namespace CommandPattern
 {
-    public override void Execute(GameObject go)
+    public class MoveLeftCommand : Command
     {
-        Debug.Log($"Moved left {go.name}");
+        public override void Execute(GameObject go)
+        {
+            Debug.Log($"Moved left {go.name}");
+        }
     }
 }
+

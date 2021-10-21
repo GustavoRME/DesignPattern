@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveForwardCommand : Command
+namespace CommandPattern
 {
-    public override void Execute(GameObject go)
+    public class MoveForwardCommand : Command
     {
-        Debug.Log($"Move forward {go.name}");
+        public override void Execute(GameObject go)
+        {
+            Debug.Log($"Move forward {go.name}");
+        }
     }
 }

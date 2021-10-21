@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpCommand : Command
+namespace CommandPattern
 {
-    public override void Execute(GameObject go)
+    public class JumpCommand : Command
     {
-        Debug.Log($"Jumped with {go.name}");
+        public override void Execute(GameObject go)
+        {
+            Debug.Log($"Jumped with {go.name}");
+        }
     }
 }

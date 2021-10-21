@@ -4,78 +4,90 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ActionConfigurationUI : MonoBehaviour
+namespace CommandPattern
 {
-    [Space]
-    [SerializeField] private TextMeshProUGUI _actionName = default;
-    [SerializeField] private TextMeshProUGUI _keyName = default;
-    [SerializeField] private Image _buttonImage = default;
-
-    [Header("Feedback colors")]
-    [SerializeField] private Color _listeningColor = Color.black;
-    [SerializeField] private Color _changedColor = Color.black;
-    [SerializeField] private float _lerpingColorTime = 2.0f;
-
-    [Header("Default Configs")]
-    [SerializeField] private string _defaultAction = "";
-    [SerializeField] private string _defaultKey = "";
-
-    private Color _normalColor;
-    private bool _isListening;
-
-    private Coroutine _lerpCoroutine;
-    private CommandHold _commandHold;
-
-    private void Start()
+    public class ActionConfigurationUI : MonoBehaviour
     {
-        //Set default values
-        _normalColor = _buttonImage.color;
-        _actionName.text = _defaultAction;
-        _keyName.text = _defaultKey;
+        [SerializeField] private BindConfigurations _bindConfig = default;
 
-        _commandHold = GetComponent<CommandHold>();
-    }
+        [Space]
+        [SerializeField] private TextMeshProUGUI _actionName = default;
+        [SerializeField] private TextMeshProUGUI _keyName = default;
+        [SerializeField] private Image _buttonImage = default;
 
-    private void OnDestroy()
-    {
-        if (_lerpCoroutine != null)
-            StopCoroutine(_lerpCoroutine);
-    }
+        [Header("Feedback colors")]
+        [SerializeField] private Color _listeningColor = Color.black;
+        [SerializeField] private Color _changedColor = Color.black;
+        [SerializeField] private float _lerpingColorTime = 2.0f;
 
-    private void OnValidate()
-    {
-        _actionName.text = _defaultAction;
-        _keyName.text = _defaultKey;
-    }
+        [Header("Default Configs")]
+        [SerializeField] private string _defaultAction = "";
+        [SerializeField] private string _defaultKey = "";
 
-    public void SwapOutListening()
-    {
-        _isListening = !_isListening;
-        //_bindActions.ListeningKeys(_isListening, this);
+        private Color _normalColor;
+        private bool _isListening;
 
-        if (_isListening) _buttonImage.color = _listeningColor;
-        else _buttonImage.color = _normalColor;
-    }
+        private Coroutine _lerpCoroutine;
+        private CommandHold _commandHold;
 
-    public void SetKey(string key)
-    {
-        _keyName.text = key;
-        _lerpCoroutine = StartCoroutine(LerpColor());
-    }
+        public Command _command => _commandHold.Command;
 
-    private IEnumerator LerpColor()
-    {
-        float time = Time.time;
-        while (Time.time - time < _lerpingColorTime)
+        private void Start()
         {
-            float normalized = (Time.time - time) / _lerpingColorTime;
-            float r = Mathf.Lerp(_changedColor.r, _normalColor.r, normalized);
-            float g = Mathf.Lerp(_changedColor.g, _normalColor.g, normalized);
-            float b = Mathf.Lerp(_changedColor.b, _normalColor.b, normalized);
+            //Set default values
+            _normalColor = _buttonImage.color;
+            _actionName.text = _defaultAction;
+            _keyName.text = _defaultKey;
 
-            _buttonImage.color = new Color(r, g, b);
+            _commandHold = GetComponent<CommandHold>();
+        }
 
-            yield return null;
+        private void OnDestroy()
+        {
+            if (_lerpCoroutine != null)
+                StopCoroutine(_lerpCoroutine);
+        }
+
+        private void OnValidate()
+        {
+            _actionName.text = _defaultAction;
+            _keyName.text = _defaultKey;
+        }
+
+        public void SwapOutListening()
+        {
+            _isListening = !_isListening;
+            _bindConfig.ListeningKeys(_isListening, this);
+
+            if (_isListening) _buttonImage.color = _listeningColor;
+            else _buttonImage.color = _normalColor;
+        }
+
+        public void SetKey(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+                key = "Space";
+
+            _keyName.text = key.ToUpper();
+            _lerpCoroutine = StartCoroutine(LerpColor());
+        }
+
+        private IEnumerator LerpColor()
+        {
+            float time = Time.time;
+            while (Time.time - time < _lerpingColorTime)
+            {
+                float normalized = (Time.time - time) / _lerpingColorTime;
+                float r = Mathf.Lerp(_changedColor.r, _normalColor.r, normalized);
+                float g = Mathf.Lerp(_changedColor.g, _normalColor.g, normalized);
+                float b = Mathf.Lerp(_changedColor.b, _normalColor.b, normalized);
+
+                _buttonImage.color = new Color(r, g, b);
+
+                yield return null;
+            }
         }
     }
+
 }
+
