@@ -28,6 +28,9 @@ namespace CommandPattern
         [Space]
         [SerializeField] private Command _buttonSpace = default;
 
+        [Space]
+        [SerializeField] private Command _buttonZ = default;
+
         private Dictionary<KeyCode, Command> _binds;
 
         private void Awake()
@@ -46,15 +49,16 @@ namespace CommandPattern
         {
             _binds = new Dictionary<KeyCode, Command>()
         {
-            {KeyCode.W, _buttonW },
-            {KeyCode.A, _buttonA },
-            {KeyCode.S, _buttonS },
-            {KeyCode.D, _buttonD },
-            {KeyCode.UpArrow, _upArrow },
-            {KeyCode.LeftArrow, _leftArrow },
-            {KeyCode.DownArrow, _downArrow },
-            {KeyCode.RightArrow, _rightArrow },
-            {KeyCode.Space, _buttonSpace }
+                {KeyCode.W, _buttonW },
+                {KeyCode.A, _buttonA },
+                {KeyCode.S, _buttonS },
+                {KeyCode.D, _buttonD },
+                {KeyCode.UpArrow, _upArrow },
+                {KeyCode.LeftArrow, _leftArrow },
+                {KeyCode.DownArrow, _downArrow },
+                {KeyCode.RightArrow, _rightArrow },
+                {KeyCode.Space, _buttonSpace },
+                {KeyCode.Z, _buttonZ }
         };
         }
 
@@ -128,6 +132,7 @@ namespace CommandPattern
             _rightArrow = _binds[KeyCode.RightArrow];
 
             _buttonSpace = _binds[KeyCode.Space];
+            _buttonZ = _binds[KeyCode.Z];
         }
     }
 }

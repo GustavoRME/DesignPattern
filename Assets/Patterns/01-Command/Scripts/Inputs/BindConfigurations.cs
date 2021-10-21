@@ -6,6 +6,8 @@ namespace CommandPattern
 {
     public class BindConfigurations : MonoBehaviour
     {
+        [SerializeField] private PlayerController _playerController = default;
+        
         private ActionConfigurationUI _actionConfig;
 
         private void Awake()
@@ -24,8 +26,7 @@ namespace CommandPattern
                 Debug.Log($"Key pressed {keyCode}");
 
                 _actionConfig.SetKey(keyCode.ToString());
-                _actionConfig = null;
-                enabled = false;
+                ListeningKeys(false, null);
             }
         }
 
@@ -33,6 +34,7 @@ namespace CommandPattern
         {
             _actionConfig = action;
             enabled = isListening;
+            _playerController.CanListeningInputs = isListening;
         }
     }
 }
