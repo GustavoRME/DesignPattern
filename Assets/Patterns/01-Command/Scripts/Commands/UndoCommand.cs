@@ -19,7 +19,7 @@ namespace CommandPattern
             if (_commands.Count == 0)
                 return;
 
-            Debug.Log("Undo command...");
+            _messageUI.Write("Undo command...");
             Command command = _commands[_commands.Count - 1];
             command.Undo(gameObject);
             _commands.Remove(command);
@@ -30,7 +30,7 @@ namespace CommandPattern
             if (command == this)
                 return;
 
-            Debug.Log("Command added...");
+            _messageUI.Write("Command added...");
             _commands.Add(command);
         }
     }

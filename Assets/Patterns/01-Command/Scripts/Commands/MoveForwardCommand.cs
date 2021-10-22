@@ -8,12 +8,12 @@ namespace CommandPattern
     {
         public override void Execute(GameObject go)
         {
-            Debug.Log($"Move forward {go.name}");
+            _messageUI.Write($"Move forward {go.name}");
         }
 
         public override void Undo(GameObject go)
         {
-            Debug.Log($"Return Move forward {go.name}");
+            _messageUI.Write($"Return Move forward {go.name}");
         }
     }
 }

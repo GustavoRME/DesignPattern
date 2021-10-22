@@ -6,6 +6,8 @@ namespace CommandPattern
 {
     public abstract class Command : MonoBehaviour
     {
+        [SerializeField] protected MessagesUI _messageUI = default;
+
         public virtual void Execute(GameObject go)
         {
 
@@ -15,6 +17,5 @@ namespace CommandPattern
         {
 
         }
-    
     }
 }

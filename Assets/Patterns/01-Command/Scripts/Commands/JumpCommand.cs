@@ -8,12 +8,12 @@ namespace CommandPattern
     {
         public override void Execute(GameObject go)
         {
-            Debug.Log($"Jumped with {go.name}");
+            _messageUI.Write($"Jumped with {go.name}");
         }
 
         public override void Undo(GameObject go)
         {
-            Debug.Log($"Return Jump {go.name}");
+            _messageUI.Write($"Return Jump {go.name}");
         }
     }
 }
