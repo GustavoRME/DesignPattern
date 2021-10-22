@@ -17,7 +17,10 @@ namespace CommandPattern
         public override void Undo(GameObject go)
         {
             if (_commands.Count == 0)
+            {
+                _messageUI.Write("NO MORE COMMAND TO UNDO...");
                 return;
+            }
 
             _messageUI.Write("Undo command...");
             Command command = _commands[_commands.Count - 1];
