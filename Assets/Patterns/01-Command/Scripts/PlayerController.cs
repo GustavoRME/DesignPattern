@@ -20,7 +20,8 @@ namespace CommandPattern
             Command command = CommandBinds.Instance.HandleInput();
             if (command != null)
             {
-                _undoCommand.AddCommand(command);
+                if(_undoCommand)
+                    _undoCommand.AddCommand(command);
                 command.Execute(gameObject);
             }
         }
