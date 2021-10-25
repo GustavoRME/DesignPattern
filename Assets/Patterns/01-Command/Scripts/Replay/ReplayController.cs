@@ -10,12 +10,13 @@ namespace CommandPattern
 
         private List<Command> _commands = new List<Command>();
         private bool _isPlaying;
+        
         private int _currentCommand;
-
-        private Coroutine _playCoroutine;
+        private float _time;
 
         private void Update()
         {
+            //Commands 
             Command command = CommandBinds.Instance.HandleInput();
             if(command != null)
             {
@@ -24,7 +25,24 @@ namespace CommandPattern
 
                 command.Execute(gameObject);
                 _commands.Add(command);
-            }    
+            }
+
+            //Replay
+            if(_isPlaying && Time.time - _time > (1 / _speed))
+            {
+                if(_currentCommand < _commands.Count && _currentCommand >= 0)
+                {
+                    _commands[_currentCommand].Execute(gameObject);
+                    _currentCommand++;
+                }
+                _time = Time.time;
+            }
+
+            if(_currentCommand >= _commands.Count)
+            {
+                _currentCommand = 0;
+                _isPlaying = false;
+            }
         }
 
         public void Play()
@@ -32,21 +50,16 @@ namespace CommandPattern
             if (_commands.Count == 0)
                 return;
 
-            if (_playCoroutine != null)
-                StopCoroutine(_playCoroutine);
-
             Debug.Log("Play...");
-            _playCoroutine = StartCoroutine(PlaySequence());
             _isPlaying = true;
         }
 
         public void Stop()
         {
-            if (_playCoroutine == null)
+            if (!_isPlaying)
                 return;
 
             Debug.Log("Stop...");
-            StopCoroutine(_playCoroutine);
             _isPlaying = false;
         }
 
@@ -55,6 +68,8 @@ namespace CommandPattern
             if (_commands.Count == 0)
                 return;
 
+            _currentCommand++;
+            _time -= 1;
             Debug.Log("Next...");
         }
 
@@ -63,19 +78,9 @@ namespace CommandPattern
             if (_commands.Count == 0)
                 return;
 
+            _currentCommand--;
+            _time -= 1;
             Debug.Log("Back...");
-        }
-
-        private IEnumerator PlaySequence()
-        {
-            while (_currentCommand < _commands.Count)
-            {
-                _commands[_currentCommand].Execute(gameObject);
-                _currentCommand++;
-                yield return new WaitForSeconds(_speed);
-            }
-            _isPlaying = false;
-            _currentCommand = 0;
         }
     }
 }
