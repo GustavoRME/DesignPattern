@@ -12,10 +12,8 @@ namespace FlyweightPattern
         [Header("Movement Settings")]
         [SerializeField] private float _rotationSpeed = 5f;
         [SerializeField] private float _heightOffset = 5f;
-        [SerializeField] private float _timeToMove = 5f;
 
         private Model _model;
-        private float _time;
         private float _t;
         private bool _isMoveUp = true;
 
@@ -28,7 +26,6 @@ namespace FlyweightPattern
             transform.eulerAngles = euler;
 
             _startPosition = position;
-            _time = Time.time;
            
             DrawObject3D();
         }
@@ -56,7 +53,6 @@ namespace FlyweightPattern
             //Reset direction
             if (_t > 1.0f || _t < 0.0f)
             {
-                _time = Time.time;
                 _isMoveUp = !_isMoveUp;
             }
         }

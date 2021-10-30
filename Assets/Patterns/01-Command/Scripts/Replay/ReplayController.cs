@@ -38,6 +38,7 @@ namespace CommandPattern
                 _time = Time.time;
             }
 
+            //Reset play and stop
             if(_currentCommand >= _commands.Count)
             {
                 _currentCommand = 0;
