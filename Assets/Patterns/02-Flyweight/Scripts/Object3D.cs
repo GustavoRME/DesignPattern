@@ -9,25 +9,27 @@ namespace FlyweightPattern
         [SerializeField] private MeshRenderer _meshRenderer = default;
         [SerializeField] private MeshFilter _meshFilter = default;
 
+        [Header("Movement Settings")]
+        [SerializeField] private float _rotationSpeed = 5f;
+        [SerializeField] private float _heightOffset = 5f;
+        [SerializeField] private float _timeToMove = 5f;
+
         private Model _model;
-        private Vector3 _startPostion;
-        private float _timeToMove = 5f;
-        private float _rotationSpeed = 5f;
         private float _time;
+        private float _t;
         private bool _isMoveUp = true;
-        
-        public Vector3 Position { get => transform.position; set => transform.position = value; }
-        public Vector3 EulerAngles { get => transform.eulerAngles; set => transform.eulerAngles = value; }
+
+        private Vector3 _startPosition;
 
         public void Create(Model model, Vector3 position, Vector3 euler)
         {
             _model = model;
-            Position = position;
-            EulerAngles = euler;
+            transform.position = position;
+            transform.eulerAngles = euler;
 
-            _startPostion = Position;
+            _startPosition = position;
             _time = Time.time;
-
+           
             DrawObject3D();
         }
 
@@ -42,35 +44,29 @@ namespace FlyweightPattern
 
         private void UpAndDown()
         {
-            float t = (Time.time - _time / _timeToMove);
+            //_t moving between 0 - 1
+            if (_isMoveUp) _t += Time.deltaTime;
+            else _t -= Time.deltaTime;
             
-            if(_isMoveUp)
-            {
-                Position = new Vector3(Position.x, Mathf.Lerp(_startPostion.y, 5, t));
-            }
-            else
-            {
-                Position = new Vector3(Position.x, Mathf.Lerp(Position.y, _startPostion.y, t));
-            }
-            
-            //Only reset the values when reach the bounds 0 and 1
-            if(t > 1.0f)
-            {
-                _time = Time.time;
-                _isMoveUp = false;
-            }
-            else if(t <= 0.0f)
-            {
-                _time = Time.time;
-                _isMoveUp = true;
-            }
+            transform.position = new Vector3(
+                    _startPosition.x,
+                    Mathf.Lerp(_startPosition.y, _heightOffset, _t), 
+                    _startPosition.z);
 
-            Debug.Log($"t => {t} / time => {_time}");
+            //Reset direction
+            if (_t > 1.0f || _t < 0.0f)
+            {
+                _time = Time.time;
+                _isMoveUp = !_isMoveUp;
+            }
         }
 
         private void Rotate()
         {
-            EulerAngles = new Vector3(EulerAngles.x, EulerAngles.y, EulerAngles.z + _rotationSpeed);
+            transform.eulerAngles = new Vector3(
+                transform.eulerAngles.x, 
+                transform.eulerAngles.y, 
+                transform.eulerAngles.z + _rotationSpeed);
         }
 
         private void DrawObject3D()

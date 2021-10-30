@@ -96,3 +96,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _meshRenderer: {fileID: 1163410569136078976}
   _meshFilter: {fileID: 1163410569136078979}
+  _rotationSpeed: 1
+  _heightOffset: 3
+  _timeToMove: 5

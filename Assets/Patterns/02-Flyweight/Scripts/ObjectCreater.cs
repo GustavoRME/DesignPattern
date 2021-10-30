@@ -8,6 +8,7 @@ namespace FlyweightPattern
     {
         [SerializeField] private Object3D _prefab = default;
         [SerializeField] private int _amount = 1000;
+        [SerializeField] private int _objectsPerLine = 5;
 
         [Space]
         [SerializeField] private Vector3 _startPostion = Vector3.zero;
@@ -23,35 +24,28 @@ namespace FlyweightPattern
 
         private void Awake()
         {
-            Vector3 curPosition = _startPostion;
             _objects = new Object3D[_amount];
+
+            int line = 1;
+            
+            Vector3 curPosition = _startPostion;
             for (int i = 0; i < _amount; i++)
             {
-                int r = Random.Range(0, 5);
+                Object3D obj3D = Instantiate(_prefab);
+                obj3D.Create(GetModel(), curPosition, Vector3.zero);
+                _objects[i] = obj3D;
 
-                Model model;
-                if(r == 0)
+                Vector3 offset = new Vector3(_padding.x, _padding.y, 0);
+                if (line % _objectsPerLine == 0)
                 {
-                    model = _capsuleMove;
-                }
-                else if(r == 1)
-                {
-                    model = _cube;
-                }
-                else if(r == 2)
-                {
-                    model = _cubeRotate;
+                    curPosition = new Vector3(_startPostion.x, _startPostion.y, curPosition.z + _padding.z);   
                 }
                 else
                 {
-                    model = _cylinder;
+                    curPosition += offset;
                 }
-
-                Object3D obj3D = Instantiate(_prefab);
-                obj3D.Create(model, curPosition, Vector3.zero);
-                _objects[i] = obj3D;
-
                 
+                line++;
             }
         }
 
@@ -61,6 +55,17 @@ namespace FlyweightPattern
             {
                 _objects[i].UpdateMe();
             }
+        }
+
+        private Model GetModel()
+        {
+            //range 0-3
+            int r = Random.Range(0, 4);
+
+            if (r == 0) return _capsuleMove;
+            else if (r == 1) return _cube;
+            else if (r == 2) return _cubeRotate;
+            return _cylinder;
         }
     }
 
