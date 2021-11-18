@@ -4,37 +4,37 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class ADialogBalloon : MonoBehaviour, IPointerEnterHandler
+namespace StatePattern
 {
-    [SerializeField] protected Dialog _dialog = default;
-    [SerializeField] protected TextMeshProUGUI _textMesh = default;
-
-
-    private void OnValidate()
+    public abstract class ADialogBalloon : MonoBehaviour, IStateUI
     {
-        if (_dialog == null) return;
-        if (_textMesh == null) return;
+        [SerializeField] protected Dialog _dialog = default;
 
-        _textMesh.text = _dialog.DialogMessage;
+        [Space]
+        [SerializeField] protected TextMeshProUGUI _textMesh = default;
+
+        private void OnValidate()
+        {
+            if (_dialog == null) return;
+            if (_textMesh == null) return;
+
+            _textMesh.text = _dialog.DialogMessage;
+        }
+
+        public virtual void StartAnimation()
+        {
+
+        }
+
+        public virtual void Animation()
+        {
+
+        }
+
+        public virtual void EndAnimation()
+        {
+
+        }
     }
 
-    public virtual void OnPointerEnter(PointerEventData eventData)
-    {
-
-    }
-
-    protected virtual void StarAnimationWrite()
-    {
-
-    }
-
-    public virtual void EndAnimationWrite()
-    {
-
-    }
-
-    public virtual void AnimationWrite()
-    {
-
-    }
 }
