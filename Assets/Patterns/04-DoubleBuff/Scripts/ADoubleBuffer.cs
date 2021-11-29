@@ -1,14 +1,13 @@
-using UnityEngine;
-
 namespace DoubleBufferPattern
 {
-    public abstract class ADoubleBuffer<T> : MonoBehaviour
+    public class ADoubleBuffer<T>
     {
         protected int _current;
         protected T[] _pointer;
 
-        //It's should be initialize Double Buffer
-        protected void InitDoubleBuffer(T buffer1, T buffer2)
+        public int Current => _current;
+
+        public ADoubleBuffer(T buffer1, T buffer2)
         {
             _pointer = new T[2]
             {
@@ -16,18 +15,18 @@ namespace DoubleBufferPattern
                 buffer2
             };
         }
-
-        protected T GetCurrentBuffer()
+        
+        public T GetCurrentBuffer()
         {
             return _pointer[_current];
         }
 
-        protected T GetNextBuffer()
+        public T GetNextBuffer()
         {
             return _pointer[Next()];
         }
 
-        protected void SwapBuffers()
+        public void SwapBuffers()
         {
             _current = Next();
         }

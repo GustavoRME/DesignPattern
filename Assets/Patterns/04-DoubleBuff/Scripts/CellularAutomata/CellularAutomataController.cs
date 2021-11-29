@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DoubleBufferPattern
 {
     public class CellularAutomataController : MonoBehaviour
     {
-        [SerializeField] private ACellularCaveAutomata _caveGenerate = default;
+        [SerializeField] private ACellularAutomata _caveGenerate = default;
         [SerializeField] private float _stepsTime = 1.0f;
 
         private bool _isStart;
@@ -20,8 +18,7 @@ namespace DoubleBufferPattern
             _time = Time.time;
             _isStart = true;
 
-            _caveGenerate.StartCave();
-            _caveGenerate.GenerateCave();
+            _caveGenerate.RunAutomata();
         }
 
         private void Update()
@@ -31,7 +28,7 @@ namespace DoubleBufferPattern
 
             if(Time.time - _time > _stepsTime)
             {
-                _caveGenerate.GenerateCave();
+                _caveGenerate.UpdateCellularAutomata();
                 _time = Time.time;
             }
         }
