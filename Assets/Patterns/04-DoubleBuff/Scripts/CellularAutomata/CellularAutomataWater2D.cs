@@ -11,7 +11,7 @@ namespace DoubleBufferPattern
         [SerializeField] private float _maxWaterAmountCell = 1.0f;
         [Tooltip("Min amount of water that a cell can have if isn't empty")]
         [SerializeField] private float _minWaterAmountCell = 0.10f;
-        [Tooltip("Amount of water can flow to next cell")]
+        [Tooltip("Amount of water can flow to cells that are by side")]
         [SerializeField] private float _waterAmountFlow = 0.25f;
 
         [Space]
@@ -63,11 +63,29 @@ namespace DoubleBufferPattern
                         }
                         else if(curData[x, y] > 0.0f)
                             data[x, y] = curData[x, y];
+                        //right
+                        else if (x < _gridSize - 1)
+                        {
+                            if (curData[x + 1, y] < curData[x, y])
+                            {
+                                float remaining = _waterAmountFlow - curData[x + 1, y];
+                                data[x, y + 1] += remaining;
+                                curData[x, y] -= remaining;
+                            }
+                        }
+                        //left
+                        else if (x > 0)
+                        {
+                            if (curData[x - 1, y] < curData[x, y])
+                            {
+                                float remaining = _waterAmountFlow - curData[x - 1, y];
+                                data[x, y - 1] += remaining;
+                                curData[x, y] -= remaining;
+                            }
+                        }
                     }
-                    if(x > 0 && x < _gridSize - 1)
-                    {
-
-                    }
+                    
+                    
                 }
             }
 
