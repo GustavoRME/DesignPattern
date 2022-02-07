@@ -4,19 +4,26 @@ using UnityEngine;
 
 namespace TypeObjectPattern 
 {
-    public class Movie : MonoBehaviour
+    public class Movie
     {
-        [SerializeField] private VideoTapeData _data = default;
+        private VideoTapeData _data = default;
 
-        [Header("Speed")]
-        [SerializeField] private float _playSpeed = 1.0f;
-        [SerializeField] private float _maxSpeed = 3.0f;
-
+        private float _playSpeed = 1.0f;
+        private float _maxSpeed = 3.0f;
         private float _currentTime;
         private bool _isFasting;
         private bool _isFowarding;
 
+        private string _movieName;
+
         public float CurrentTime => _currentTime;
+        public string MovieName => _movieName;
+
+        public Movie(VideoTapeData videoTape, string name)
+        {
+            _data = videoTape;
+            _movieName = name;
+        }
 
         /// <summary>
         /// </summary>

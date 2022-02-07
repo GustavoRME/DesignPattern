@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd8f09b977e750d4d8a25b2714b421c1, type: 3}
-  m_Name: StarWarsTape
+  m_Name: Marvel
   m_EditorClassIdentifier: 
-  _name: Start Wars #1
-  _price: 100
-  _duration: 10
-  _sessions: 0
+  _price: 20
+  _duration: 3.5
+  _sessions: 6
